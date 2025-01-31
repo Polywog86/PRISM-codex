@@ -1,0 +1,26 @@
+{
+  "name": "hive-note",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A lightweight markdown-based note-taking app with AI, encryption, and RPG tools.",
+  "author": "Lord Cottier",
+  "license": "MIT",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "start": "yarn workspace frontend start & yarn workspace backend start",
+    "build": "yarn workspace frontend build && yarn workspace backend build",
+    "test": "yarn workspace frontend test && yarn workspace backend test",
+    "lint": "yarn workspace frontend lint && yarn workspace backend lint"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=3.0.0"
+  }
+}
