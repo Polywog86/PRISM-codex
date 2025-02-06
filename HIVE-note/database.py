@@ -8,22 +8,16 @@ def create_tables():
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
 
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS notes (
+    cursor.execute("""CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT UNIQUE NOT NULL,
-        content TEXT NOT NULL
-    )
-    """)
+        content TEXT NOT NULL)""")
 
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS tags (
+    cursor.execute("""CREATE TABLE IF NOT EXISTS tags (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         note_id INTEGER NOT NULL,
         tag TEXT NOT NULL,
-        FOREIGN KEY (note_id) REFERENCES notes(id)
-    )
-    """)
+        FOREIGN KEY (note_id) REFERENCES notes(id))""")
 
     conn.commit()
     conn.close()
@@ -49,12 +43,10 @@ def search_notes_by_tag(tag_id):
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
 
-    cursor.execute("""
-    SELECT notes.title FROM notes
+    cursor.execute("""SELECT notes.title FROM notes
     JOIN note_tag ON notes.id = note-tag.note_id
     JOIN tags ON tags.id = note_tag.tag_id
-    WHERE tags.tag_name = ?
-    """, (tag_id,))
+    WHERE tags.tag_name = ?""", (tag_id,))
 
     results = cursor.fetchall()
     conn.close()
@@ -84,31 +76,22 @@ try:
     cursor = conn.cursor()
 
     
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS notes (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         content TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-    ''')
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
 
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS tags (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS tags (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        tag_name TEXT NOT NULL UNIQUE
-    )
-    ''')
+        tag_name TEXT NOT NULL UNIQUE)''')
 
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS note_tag (
+    cursor.execute('''CREATE TABLE IF NOT EXISTS note_tag (
         note_id INTEGER,
         tag_id INTEGER,
         FOREIGN KEY (note_id) REFERENCES notes (id),
         FOREIGN KEY (tag_id) REFERENCES tags (id),
-        PRIMARY KEY (note_id, tag_id)
-    )
-    ''')
+        PRIMARY KEY (note_id, tag_id))''')
 
     
     conn.commit()
