@@ -1,2 +1,2 @@
 # HIVE-note
-A powerful AI-powered markdown note application
+A markdown note application
